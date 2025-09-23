@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-char	*ft_free(char *buffer, char *buf)
+char	*ft_joinandfree(char *buffer, char *buf)
 {
 	char	*joined;
 
@@ -68,7 +68,7 @@ char	*ft_line(char *buffer)
 		i++;
 	}
 	if (buffer[i] == '\n')
-		line[i++] = '\n';
+		line[i] = '\n';
 	return (line);
 }
 
@@ -90,7 +90,7 @@ char	*read_file(int fd, char *res)
 			return (NULL);
 		}
 		buffer[byte_read] = 0;
-		res = ft_free(res, buffer);
+		res = ft_joinandfree(res, buffer);
 		if (ft_strchr(buffer, '\n'))
 			break ;
 	}
