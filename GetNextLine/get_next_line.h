@@ -20,11 +20,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+char	*ft_strndup(const char *s, int n);
 char	*get_next_line(int fd);
 char	*read_file(int fd, char *res);
 char	*ft_line(char *buffer);
 char	*ft_next(char *buffer);
-char	*ft_joinandfree(char *buffer, char *buf);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strchr(const char *string, int searchedChar);
 

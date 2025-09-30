@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-char	*ft_strnjoin(char *s1, char *s2, int n)
+char	*ft_strjoin(char *s1, char *s2, int n)
 {
 	int		len1;
 	char	*res;

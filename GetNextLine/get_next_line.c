@@ -96,7 +96,7 @@ char	*read_file(int fd, char *res)
 			break ;
 		}
 		buffer[byte_read] = '\0';
-		res = ft_strnjoin(res, buffer, byte_read);
+		res = ft_strjoin(res, buffer, byte_read);
 		if (ft_strchr(buffer, '\n'))
 			break ;
 	}
