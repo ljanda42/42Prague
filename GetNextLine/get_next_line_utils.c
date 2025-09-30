@@ -12,32 +12,32 @@
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strnjoin(char *s1, char *s2, int n)
 {
-	int		sizetotal;
-	char	*result;
+	int		len1;
+	char	*res;
 	int		i;
 	int		j;
 
-	i = 0;
-	sizetotal = ft_strlen(s1) + ft_strlen(s2);
-	result = malloc(sizeof(char) * (sizetotal + 1));
-	if (!result || !s1 || !s2)
+	if (!s1 && !s2)
 		return (NULL);
-	while (s1[i] != 0)
-	{
-		result[i] = s1[i];
-		i++;
-	}
+	if (!s1)
+		return (ft_strndup(s2, n));
+	if (!s2)
+		return (s1);
+	len1 = ft_strlen(s1);
+	res = malloc(len1 + n + 1);
+	if (!res)
+		return (NULL);
+	i = 0;
 	j = 0;
-	while (s2[j] != 0)
-	{
-		result[i] = s2[j];
-		i++;
-		j++;
-	}
-	result[sizetotal] = 0;
-	return (result);
+	while (i < len1)
+		res[i] = s1[i++];
+	while (j < n && s2[j])
+		res[i++] = s2[j++];
+	res[i] = '\0';
+	free(s1);
+	return (res);
 }
 
 char	*ft_strchr(const char *string, int searchedChar )

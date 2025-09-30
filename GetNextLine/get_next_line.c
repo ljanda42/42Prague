@@ -12,19 +12,22 @@
 
 #include "get_next_line.h"
 
-char	*ft_joinandfree(char *buffer, char *buf)
+char	*ft_strndup(const char *s, int n)
 {
-	char	*joined;
+	char	*res;
+	int		i;
 
-	if (!buffer && !buf)
+	res = malloc(n + 1);
+	if (!res)
 		return (NULL);
-	if (!buffer)
-		return (ft_strjoin("", buf));
-	if (!buf)
-		return (buffer);
-	joined = ft_strjoin(buffer, buf);
-	free(buffer);
-	return (joined);
+	i = 0;
+	while (i < n && s[i])
+	{
+		res[i] = s[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
 }
 
 char	*ft_next(char *buffer)
@@ -79,18 +82,21 @@ char	*read_file(int fd, char *res)
 
 	if (!res)
 		res = ft_calloc(1, 1);
-	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	buffer = malloc(BUFFER_SIZE + 1);
+	if (!buffer)
+		return (NULL);
 	byte_read = 1;
 	while (byte_read > 0)
 	{
 		byte_read = read(fd, buffer, BUFFER_SIZE);
-		if (byte_read == -1)
+		if (byte_read <= 0)
 		{
-			free(buffer);
-			return (NULL);
+			if (byte_read == -1)
+				free(res);
+			break ;
 		}
-		buffer[byte_read] = 0;
-		res = ft_joinandfree(res, buffer);
+		buffer[byte_read] = '\0';
+		res = ft_strnjoin(res, buffer, byte_read);
 		if (ft_strchr(buffer, '\n'))
 			break ;
 	}
