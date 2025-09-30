@@ -25,7 +25,7 @@ char	*get_next_line(int fd);
 char	*read_file(int fd, char *res);
 char	*ft_line(char *buffer);
 char	*ft_next(char *buffer);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strnjoin(char *s1, char *s2, int n);
 char	*ft_strchr(const char *string, int searchedChar);
 
 void	ft_bzero(void *s, size_t n);

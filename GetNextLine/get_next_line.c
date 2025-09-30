@@ -34,23 +34,25 @@ char	*ft_next(char *buffer)
 {
 	int		i;
 	int		j;
-	char	*line;
+	char	*next;
 
 	i = 0;
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
-	if (!buffer[i])
+	if (!buffer[i]) // žádný \n
 	{
 		free(buffer);
 		return (NULL);
 	}
-	line = ft_calloc((ft_strlen(buffer) - i + 1), sizeof(char));
-	i++;
+	next = ft_calloc(ft_strlen(buffer) - i, sizeof(char));
+	if (!next)
+		return (NULL);
+	i++; // přeskočit \n
 	j = 0;
 	while (buffer[i])
-		line[j++] = buffer[i++];
+		next[j++] = buffer[i++];
 	free(buffer);
-	return (line);
+	return (next);
 }
 
 char	*ft_line(char *buffer)
@@ -78,11 +80,12 @@ char	*ft_line(char *buffer)
 char	*read_file(int fd, char *res)
 {
 	char	*buffer;
+	char	*tmp;
 	int		byte_read;
 
 	if (!res)
 		res = ft_calloc(1, 1);
-	buffer = malloc(BUFFER_SIZE + 1);
+	buffer = ft_calloc(BUFFER_SIZE + 1, 1);
 	if (!buffer)
 		return (NULL);
 	byte_read = 1;
@@ -91,12 +94,24 @@ char	*read_file(int fd, char *res)
 		byte_read = read(fd, buffer, BUFFER_SIZE);
 		if (byte_read <= 0)
 		{
-			if (byte_read == -1)
+			free(buffer);
+			if (byte_read < 0)
+			{
 				free(res);
-			break ;
+				return (NULL);
+			}
+			return (res);
 		}
 		buffer[byte_read] = '\0';
-		res = ft_strjoin(res, buffer, byte_read);
+		tmp = ft_strnjoin(res, buffer, byte_read);
+		if (!tmp)
+		{
+    		free(res);
+    		free(buffer);
+    		return (NULL);
+		}
+		free(res);
+		res = tmp;
 		if (ft_strchr(buffer, '\n'))
 			break ;
 	}

@@ -12,31 +12,32 @@
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(char *s1, char *s2, int n)
+char	*ft_strnjoin(char *s1, char *s2, int n)
 {
-	int		len1;
 	char	*res;
+	int		len1;
 	int		i;
 	int		j;
 
 	if (!s1 && !s2)
 		return (NULL);
-	if (!s1)
-		return (ft_strndup(s2, n));
-	if (!s2)
-		return (s1);
-	len1 = ft_strlen(s1);
+	len1 = s1 ? ft_strlen(s1) : 0;
 	res = malloc(len1 + n + 1);
 	if (!res)
 		return (NULL);
 	i = 0;
+	if (s1)
+	{
+		while (s1[i])
+		{
+			res[i] = s1[i];
+			i++;
+		}
+	}
 	j = 0;
-	while (i < len1)
-		res[i] = s1[i++];
 	while (j < n && s2[j])
 		res[i++] = s2[j++];
 	res[i] = '\0';
-	free(s1);
 	return (res);
 }
 
