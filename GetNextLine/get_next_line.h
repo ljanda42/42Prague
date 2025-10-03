@@ -3,34 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljanda <ljanda@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: bkaztaou <bkaztaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/06 08:17:22 by ljanda            #+#    #+#             */
-/*   Updated: 2025/09/26 08:31:59 by ljanda           ###   ########.fr       */
+/*   Created: 2023/05/09 16:54:15 by bkaztaou          #+#    #+#             */
+/*   Updated: 2023/05/09 16:54:17 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+# include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <stdint.h>
+
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 8
 # endif
 
-# include <stdlib.h>
-# include <unistd.h>
-
-char	*ft_strndup(const char *s, int n);
+size_t	ft_strlen(char *str);
+char	*newline_exist(char *str);
+char	*ft_strjoin(char *stash, char *buff);
+void	*ft_calloc(size_t count, size_t size);
 char	*get_next_line(int fd);
-char	*read_file(int fd, char *res);
-char	*ft_line(char *buffer);
-char	*ft_next(char *buffer);
-char	*ft_strnjoin(char *s1, char *s2, int n);
-char	*ft_strchr(const char *string, int searchedChar);
-
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t elementCount, size_t elementSize);
-
-size_t	ft_strlen(const char *theString);
 
 #endif

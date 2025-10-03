@@ -3,88 +3,79 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljanda <ljanda@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: bkaztaou <bkaztaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/06 15:17:22 by ljanda            #+#    #+#             */
-/*   Updated: 2025/08/06 08:31:59 by ljanda           ###   ########.fr       */
+/*   Created: 2023/05/09 16:53:58 by bkaztaou          #+#    #+#             */
+/*   Updated: 2023/05/09 16:54:42 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-char	*ft_strnjoin(char *s1, char *s2, int n)
-{
-	char	*res;
-	int		len1;
-	int		i;
-	int		j;
-
-	if (!s1 && !s2)
-		return (NULL);
-	len1 = s1 ? ft_strlen(s1) : 0;
-	res = malloc(len1 + n + 1);
-	if (!res)
-		return (NULL);
-	i = 0;
-	if (s1)
-	{
-		while (s1[i])
-		{
-			res[i] = s1[i];
-			i++;
-		}
-	}
-	j = 0;
-	while (j < n && s2[j])
-		res[i++] = s2[j++];
-	res[i] = '\0';
-	return (res);
-}
-
-char	*ft_strchr(const char *string, int searchedChar )
-{
-	char	*str;
-
-	str = (char *)string;
-	while (*str != searchedChar && *str != 0)
-		str++;
-	if (*str == searchedChar)
-		return (str);
-	else
-		return (NULL);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	char	*str;
-	size_t	i;
-
-	str = (char *)s;
-	i = 0;
-	while (i < n)
-	{
-		str[i] = '\0';
-		i++;
-	}
-}
-
-void	*ft_calloc(size_t elementCount, size_t elementSize)
-{
-	char	*res;
-
-	res = malloc(elementSize * elementCount);
-	if (!res)
-		return (NULL);
-	ft_bzero(res, elementSize * elementCount);
-	return (res);
-}
-
-size_t	ft_strlen(const char *theString)
+char	*newline_exist(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (theString[i])
+	if (!str)
+		return (NULL);
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			return (&str[i]);
+		i++;
+	}
+	return (NULL);
+}
+
+size_t	ft_strlen(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
 		i++;
 	return (i);
+}
+
+char	*ft_strjoin(char *stash, char *buff)
+{
+	int		i;
+	int		j;
+	char	*temp;
+
+	if (!stash && !buff)
+		return (NULL);
+	if (!stash)
+		stash = ft_calloc(1, sizeof(char));
+	temp = malloc(sizeof(char) * (ft_strlen(stash) + ft_strlen(buff) + 1));
+	if (!temp)
+		return (NULL);
+	i = -1;
+	while (stash[++i])
+		temp[i] = stash[i];
+	j = -1;
+	while (buff[++j])
+		temp[i++] = buff[j];
+	temp[i] = '\0';
+	return (free(stash), free(buff), temp);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	size_t	i;
+	char	*ptr;
+
+	i = 0;
+	if (count && size > SIZE_MAX / count)
+		return (NULL);
+	ptr = malloc(count * size);
+	if (!ptr)
+		return (NULL);
+	while (i < count)
+	{
+		ptr[i] = '\0';
+		i++;
+	}
+	return (ptr);
 }
