@@ -15,7 +15,7 @@
 char	*read_file(int fd, char *stash)
 {
 	char	*buff;
-	size_t		readed;
+	long	readed;
 
 	readed = 1;
 	while (!newline_exist(stash) && readed != 0)
@@ -23,7 +23,7 @@ char	*read_file(int fd, char *stash)
 		buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 		if (!buff)
 			return (NULL);
-		readed = read(fd, buff, BUFFER_SIZE);
+		readed = (long)read(fd, buff, BUFFER_SIZE);
 		if ((!stash && readed == 0) || readed == -1)
 		{
 			free(buff);
