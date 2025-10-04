@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkaztaou <bkaztaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljanda <ljanda@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 16:54:15 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/05/09 16:54:17 by bkaztaou         ###   ########.fr       */
+/*   Created: 2025/10/04 08:17:22 by ljanda            #+#    #+#             */
+/*   Updated: 2025/10/04 08:31:59 by ljanda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <fcntl.h>
-# include <stdint.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 8
+#  define BUFFER_SIZE 42
 # endif
 
 size_t	ft_strlen(char *str);

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkaztaou <bkaztaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljanda <ljanda@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 16:53:58 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/05/09 16:54:42 by bkaztaou         ###   ########.fr       */
+/*   Created: 2025/10/04 08:17:22 by ljanda            #+#    #+#             */
+/*   Updated: 2025/10/04 08:31:59 by ljanda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 char	*newline_exist(char *str)
 {
@@ -58,7 +58,9 @@ char	*ft_strjoin(char *stash, char *buff)
 	while (buff[++j])
 		temp[i++] = buff[j];
 	temp[i] = '\0';
-	return (free(stash), free(buff), temp);
+	free(stash);
+	free(buff);
+	return (temp);
 }
 
 void	*ft_calloc(size_t count, size_t size)
@@ -67,8 +69,6 @@ void	*ft_calloc(size_t count, size_t size)
 	char	*ptr;
 
 	i = 0;
-	if (count && size > SIZE_MAX / count)
-		return (NULL);
 	ptr = malloc(count * size);
 	if (!ptr)
 		return (NULL);
