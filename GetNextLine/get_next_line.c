@@ -15,7 +15,7 @@
 char	*read_file(int fd, char *stash)
 {
 	char	*buff;
-	int		readed;
+	size_t		readed;
 
 	readed = 1;
 	while (!newline_exist(stash) && readed != 0)
@@ -23,9 +23,12 @@ char	*read_file(int fd, char *stash)
 		buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 		if (!buff)
 			return (NULL);
-		readed = (int)read(fd, buff, BUFFER_SIZE);
+		readed = read(fd, buff, BUFFER_SIZE);
 		if ((!stash && readed == 0) || readed == -1)
-			return (free(buff), NULL);
+		{
+			free(buff);
+			return (NULL);
+		}
 		buff[readed] = '\0';
 		stash = ft_strjoin(stash, buff);
 	}
@@ -65,7 +68,10 @@ char	*ft_get_rest(char *stash, char *line)
 
 	i = ft_strlen(line);
 	if (!stash[i])
-		return (free(stash), NULL);
+	{
+		free(stash);
+		return (NULL);
+	}
 	j = 0;
 	while (stash[i++])
 		j++;
@@ -77,7 +83,8 @@ char	*ft_get_rest(char *stash, char *line)
 	while (stash[i])
 		rest[j++] = stash[i++];
 	rest[j] = '\0';
-	return (free(stash), rest);
+	free(stash);
+	return (rest);
 }
 
 char	*get_next_line(int fd)
